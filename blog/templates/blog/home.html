@@ -188,12 +188,35 @@
                         </p>
 
                         <div class="row">
-                            <div class="col-6">
+                            
+                        <div class="row">
+                            <div class="col-6" style="display: flex;">
                                 <small style="opacity: 0.4;">
-                                    {{ post.number_of_comments }} comment(s)
+
+                                    <!-- Like Buttons Here -->
+                                    <a href="#" onClick="document.getElementById('likebutton').submit()">
+                                            {% if post.likes == 1  %}
+                                            <i style="color: red; font-size: 16px;" class="far fa-heart"></i>
+                                            {% else %}
+                                            <i style=" font-size: 16px;" class="far fa-heart"></i>
+                                            {% endif %}
+
+                                             {{post.likes}} like(s)
+                                        
+                                    </a> 
+
+                                    <form id="likebutton" method="POST" action="{% url 'postpreference' post.id 1%}">
+                                    {% csrf_token %}
+                                    <input type="hidden">
+                                    </form>
+
+                                    
                                 </small>
-                                <small style="opacity: 0.4;">
-                                    ({{ post.total_likes }}) <i class="fas fa-thumbs-up fa-lg"></i>
+                                <small style="opacity: 0.4; margin-left:15px;">
+                                    <a href="/post/{{post.id}}/">
+                                        <i style=" font-size: 16px;" class="far fa-comment"></i> {{ post.number_of_comments }} comment(s)
+                                    </a>
+                                    
                                 </small>
                             </div>
                             <div class="col-6">
